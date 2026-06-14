@@ -65,15 +65,14 @@ The server accepts one text command per line.
 
 Commands are case-insensitive, but the command arguments should be handled as normal text.
 
-| Client sends    | Server responds     |
-| --------------- | ------------------- |
-| `ECHO hello`    | `hello`             |
-| `UPPER hello`   | `HELLO`             |
-| `LOWER HELLO`   | `hello`             |
-| `REVERSE hello` | `olleh`             |
-| `TIME`          | current server time |
-| `QUIT`          | closes connection   |
-| unknown command | error message       |
+| Client sends    | Server responds                 |
+| --------------- | --------------------------------|
+| `ECHO hello`    | `hello`                         |
+| `UPPER hello`   | `HELLO`                         |
+| `LOWER HELLO`   | `hello`                         |
+| `QUIT`          | 'Goodbye.' closes connection    |
+| unknown command | error message                   |
+| empty command   | 'ERROR empty command'           |
 
 ## Running the Lab
 
@@ -178,9 +177,13 @@ npm run test:watch
 Answer the following questions in your submission:
 
 1. What is the difference between the client and the server?
+    The client sends commands to the server and initiates a connection. The server waits to receive commands from the client then processes the commands and sends a repsonse back to the client.
 2. Why does the server need to keep running after handling one request?
+    If the server were to stop running after handling one request, then the server would need to be restarted and the client would need to reconnect for every request.
 3. What happens if two clients connect at the same time?
+    If two clients connect at the same time, the server makes two sockets for the clients to connect to. Both clients are able to send requests to the server, and the server can send individual responses to each client.
 4. How is this different from HTTP?
+    The TCP connection in this lab sends text commands over a socket. TCP is used by HTTP, but HTTP has additional structure and a bit more abstraction.
 
 ## Submission
 
